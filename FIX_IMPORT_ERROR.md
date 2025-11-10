@@ -24,7 +24,41 @@ pip install -r requirements.txt
 python -c "from google import genai; print('✓ google-genai installed correctly')"
 ```
 
-## If That Doesn't Work
+## Common Issue: Running from Wrong Python Environment
+
+If you installed packages but still get the error, you might be running Streamlit from the wrong Python environment.
+
+**Check if this is your issue:**
+Look at the error traceback. If you see paths like:
+- `/opt/anaconda3/lib/python3.12/...`
+- `/usr/local/lib/python3.x/...`
+- But NOT your venv path
+
+Then Streamlit is running from system Python instead of your virtual environment!
+
+**Solution - Use the provided script:**
+
+```bash
+# Make sure you're in the project directory
+cd LENR-Google-claude-gemini-file-search-docs-011CUzqZmQcNRQCJLJmqNczS
+
+# Use the run script (ensures correct environment)
+./run_app.sh
+```
+
+**Or manually:**
+
+```bash
+# Activate venv
+source venv/bin/activate
+
+# Run using Python module (forces venv's streamlit)
+python -m streamlit run web_ui/app.py
+
+# NOT: streamlit run web_ui/app.py  (might use system streamlit)
+```
+
+## If That Still Doesn't Work
 
 Try creating a fresh virtual environment:
 
