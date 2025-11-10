@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
-import google.genai as genai
+from google import genai
 from google.genai import types
 
 from src.utils.logger import setup_logger
