@@ -7,6 +7,7 @@ import google.genai as genai
 from google.genai import types
 
 from src.utils.logger import setup_logger
+from src.utils.excel_handler import ExcelHandler
 
 logger = setup_logger(__name__)
 
@@ -330,3 +331,168 @@ class GeminiRAG:
 
         logger.info(f"Batch uploaded {len(operations)}/{len(file_paths)} files")
         return operations
+
+    def upload_excel(
+        self,
+        file_path: Union[str, Path],
+        store_name: str,
+        metadata: Optional[Dict[str, str]] = None,
+        conversion_format: str = "markdown",
+        auto_cleanup: bool = True
+    ) -> str:
+        """
+        Upload Excel file to the RAG system.
+
+        Excel files are automatically converted to a searchable format (markdown, text, or JSON)
+        before uploading to ensure optimal RAG performance.
+
+        Args:
+            file_path: Path to Excel file (.xlsx or .xls)
+            store_name: Target store resource name
+            metadata: Optional metadata for the file
+            conversion_format: Format to convert to ('markdown', 'text', 'json')
+            auto_cleanup: Whether to delete converted file after upload
+
+        Returns:
+            Operation name for the upload
+
+        Example:
+            >>> rag = GeminiRAG()
+            >>> store_name = rag.create_store("excel-data")
+            >>> rag.upload_excel(
+            ...     "sales_data.xlsx",
+            ...     store_name,
+            ...     metadata={"type": "sales", "year": "2024"}
+            ... )
+        """
+        file_path = Path(file_path)
+
+        # Check file extension
+        if file_path.suffix.lower() not in ['.xlsx', '.xls']:
+            raise ValueError(f"Not an Excel file: {file_path}")
+
+        logger.info(f"Processing Excel file: {file_path.name}")
+
+        # Get Excel summary
+        summary = ExcelHandler.get_excel_summary(file_path)
+        logger.info(f"Excel file has {summary['sheet_count']} sheets")
+
+        # Convert Excel to searchable format
+        converted_file = ExcelHandler.prepare_excel_for_rag(
+            file_path,
+            format=conversion_format
+        )
+
+        # Add Excel metadata
+        excel_metadata = {
+            "source_type": "excel",
+            "original_filename": file_path.name,
+            "sheet_count": str(summary['sheet_count']),
+            "sheet_names": ",".join(summary['sheet_names']),
+            "conversion_format": conversion_format
+        }
+
+        # Merge with user metadata
+        if metadata:
+            excel_metadata.update(metadata)
+
+        try:
+            # Upload the converted file
+            operation = self.upload_file(
+                converted_file,
+                store_name,
+                metadata=excel_metadata
+            )
+
+            logger.info(f"Successfully uploaded Excel file: {file_path.name}")
+            return operation
+
+        finally:
+            # Cleanup converted file if requested
+            if auto_cleanup and converted_file.exists():
+                converted_file.unlink()
+                logger.debug(f"Cleaned up converted file: {converted_file}")
+
+    def batch_upload_excel(
+        self,
+        file_paths: List[Union[str, Path]],
+        store_name: str,
+        conversion_format: str = "markdown",
+        metadata_fn: Optional[callable] = None
+    ) -> List[str]:
+        """
+        Batch upload multiple Excel files.
+
+        Args:
+            file_paths: List of Excel file paths
+            store_name: Target store resource name
+            conversion_format: Format to convert to ('markdown', 'text', 'json')
+            metadata_fn: Optional function to generate metadata per file
+
+        Returns:
+            List of operation names
+
+        Example:
+            >>> rag = GeminiRAG()
+            >>> excel_files = ["q1.xlsx", "q2.xlsx", "q3.xlsx", "q4.xlsx"]
+            >>> operations = rag.batch_upload_excel(excel_files, store_name)
+        """
+        operations = []
+
+        for file_path in file_paths:
+            try:
+                metadata = metadata_fn(file_path) if metadata_fn else None
+                operation = self.upload_excel(
+                    file_path,
+                    store_name,
+                    metadata=metadata,
+                    conversion_format=conversion_format
+                )
+                operations.append(operation)
+            except Exception as e:
+                logger.error(f"Failed to upload Excel file {file_path}: {e}")
+
+        logger.info(f"Batch uploaded {len(operations)}/{len(file_paths)} Excel files")
+        return operations
+
+    def query_excel_data(
+        self,
+        question: str,
+        store_name: str,
+        model: Optional[str] = None,
+        temperature: float = 0.3
+    ) -> Dict[str, Any]:
+        """
+        Query Excel data with optimized settings for structured data.
+
+        Uses lower temperature for more accurate data retrieval from tables.
+
+        Args:
+            question: Question about the data
+            store_name: Store containing Excel data
+            model: Model to use (defaults to self.default_model)
+            temperature: Sampling temperature (default 0.3 for accuracy)
+
+        Returns:
+            Query response with answer and citations
+
+        Example:
+            >>> rag = GeminiRAG()
+            >>> response = rag.query_excel_data(
+            ...     "What were the total sales in Q1?",
+            ...     store_name
+            ... )
+            >>> print(response["answer"])
+        """
+        # Add context hint for structured data
+        enhanced_question = f"""Based on the Excel/spreadsheet data provided, {question}
+
+Please provide specific numbers and reference the relevant cells or rows where applicable."""
+
+        return self.query(
+            question=enhanced_question,
+            store_name=store_name,
+            model=model,
+            temperature=temperature,
+            max_output_tokens=2048
+        )

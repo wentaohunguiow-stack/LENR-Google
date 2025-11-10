@@ -59,6 +59,12 @@ uploads/
 *.txt
 !requirements*.txt
 
+# Ignore Excel files except in examples
+*.xlsx
+*.xls
+!examples/*.xlsx
+!examples/*.xls
+
 # OS
 .DS_Store
 Thumbs.db

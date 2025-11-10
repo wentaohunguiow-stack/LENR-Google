@@ -5,7 +5,8 @@ A Retrieval-Augmented Generation (RAG) system built with Google's Gemini API fil
 ## Features
 
 - **File Search Store Management**: Create and manage document stores with semantic search
-- **Document Upload**: Upload and index documents (PDF, TXT, DOCX, etc.)
+- **Document Upload**: Upload and index documents (PDF, TXT, DOCX, Excel, etc.)
+- **Excel Integration**: Automatic conversion and indexing of Excel spreadsheets (.xlsx, .xls)
 - **Intelligent Retrieval**: Semantic search using Google's embeddings
 - **RAG Queries**: Ask questions and get contextual answers from your documents
 - **Metadata Support**: Add custom metadata for filtering and organization
@@ -38,6 +39,8 @@ Get your API key from: https://aistudio.google.com/app/apikey
 
 ## Quick Start
 
+### Basic Usage
+
 ```python
 from src.rag.gemini_rag import GeminiRAG
 
@@ -64,6 +67,26 @@ print(response["answer"])
 print("Sources:", response["citations"])
 ```
 
+### Excel Integration
+
+```python
+# Upload Excel files (automatically converted to searchable format)
+rag.upload_excel(
+    file_path="sales_data.xlsx",
+    store_name=store_name,
+    metadata={"type": "sales", "quarter": "Q1"},
+    conversion_format="markdown"  # or "text", "json"
+)
+
+# Query Excel data with optimized settings
+response = rag.query_excel_data(
+    question="What were the total sales in Q1?",
+    store_name=store_name
+)
+
+print(response["answer"])
+```
+
 ## Usage Examples
 
 See the `examples/` directory for detailed usage examples:
@@ -71,6 +94,7 @@ See the `examples/` directory for detailed usage examples:
 - `basic_usage.py`: Simple document upload and query
 - `advanced_usage.py`: Metadata filtering and chunking configuration
 - `batch_upload.py`: Upload multiple documents at once
+- `excel_usage.py`: Excel file integration and querying
 
 ## Architecture
 
@@ -95,8 +119,18 @@ Contextual Answer + Citations
 - Word Documents (`.docx`)
 - Markdown (`.md`)
 - HTML (`.html`)
+- **Excel Spreadsheets (`.xlsx`, `.xls`)** - Automatically converted to searchable format
 
 Maximum file size: 100 MB per document
+
+### Excel File Support
+
+Excel files are automatically converted to an optimal format for RAG:
+- **Markdown format**: Preserves table structure (recommended for most use cases)
+- **Text format**: Human-readable with clear descriptions
+- **JSON format**: Structured data representation
+
+The system extracts all sheets, preserves column headers, and maintains data relationships for accurate querying.
 
 ## API Documentation
 
@@ -107,7 +141,9 @@ Maximum file size: 100 MB per document
 - `create_store(display_name: str) -> str`: Create a new file search store
 - `list_stores() -> List[Dict]`: List all available stores
 - `upload_file(file_path: str, store_name: str, metadata: Dict = None) -> str`: Upload a document
+- `upload_excel(file_path: str, store_name: str, metadata: Dict = None, conversion_format: str = "markdown") -> str`: Upload Excel file
 - `query(question: str, store_name: str, model: str = "gemini-2.5-flash") -> Dict`: Query documents
+- `query_excel_data(question: str, store_name: str) -> Dict`: Query Excel data with optimized settings
 - `delete_store(store_name: str) -> bool`: Delete a store
 
 ## Pricing
