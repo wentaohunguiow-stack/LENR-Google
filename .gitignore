@@ -55,6 +55,11 @@ data/
 *.docx
 uploads/
 
+# Local files folder (user's files)
+my_local_files/*
+!my_local_files/README.md
+.file_index.json
+
 # Ignore text files except requirements files and demo_data
 *.txt
 !requirements*.txt
