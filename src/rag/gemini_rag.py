@@ -221,11 +221,11 @@ class GeminiRAG:
                 model=model_name,
                 contents=question,
                 config=types.GenerateContentConfig(
-                    tools=[types.Tool(
-                        file_search=types.FileSearchToolConfig(
-                            file_search_store_names=[store_name]
-                        )
-                    )],
+                    tools=[{
+                        "file_search": {
+                            "file_search_store_names": [store_name]
+                        }
+                    }],
                     temperature=temperature,
                     max_output_tokens=max_output_tokens,
                 )
