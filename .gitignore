@@ -55,15 +55,18 @@ data/
 *.docx
 uploads/
 
-# Ignore text files except requirements files
+# Ignore text files except requirements files and demo_data
 *.txt
 !requirements*.txt
+!demo_data/*.txt
 
-# Ignore Excel files except in examples
+# Ignore Excel files except in examples and demo_data
 *.xlsx
 *.xls
 !examples/*.xlsx
 !examples/*.xls
+!demo_data/*.xlsx
+!demo_data/*.xls
 
 # OS
 .DS_Store
