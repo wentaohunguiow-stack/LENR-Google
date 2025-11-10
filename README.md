@@ -4,13 +4,14 @@ A Retrieval-Augmented Generation (RAG) system built with Google's Gemini API fil
 
 ## Features
 
+- **Interactive Web UI**: OpenEvidence-style interface with clickable citations
 - **File Search Store Management**: Create and manage document stores with semantic search
 - **Document Upload**: Upload and index documents (PDF, TXT, DOCX, Excel, etc.)
 - **Excel Integration**: Automatic conversion and indexing of Excel spreadsheets (.xlsx, .xls)
 - **Intelligent Retrieval**: Semantic search using Google's embeddings
 - **RAG Queries**: Ask questions and get contextual answers from your documents
+- **Interactive Citations**: Numbered references with source previews and document links
 - **Metadata Support**: Add custom metadata for filtering and organization
-- **Citation Tracking**: Get source citations for generated answers
 
 ## Installation
 
@@ -87,6 +88,23 @@ response = rag.query_excel_data(
 print(response["answer"])
 ```
 
+## Web Interface with Interactive Citations
+
+Launch the interactive web UI for an OpenEvidence-style experience:
+
+```bash
+streamlit run web_ui/app.py
+```
+
+Features:
+- 🔍 **Interactive Search**: Ask questions with real-time results
+- 📚 **Clickable Citations**: Numbered references like academic papers
+- 📄 **Source Preview**: View excerpts from cited documents
+- 📊 **Document Management**: Upload and organize files
+- 💾 **Query History**: Track previous searches
+
+See `web_ui/README.md` for detailed instructions.
+
 ## Usage Examples
 
 See the `examples/` directory for detailed usage examples:
@@ -95,6 +113,7 @@ See the `examples/` directory for detailed usage examples:
 - `advanced_usage.py`: Metadata filtering and chunking configuration
 - `batch_upload.py`: Upload multiple documents at once
 - `excel_usage.py`: Excel file integration and querying
+- `citation_demo.py`: Interactive citation features demonstration
 
 ## Architecture
 
