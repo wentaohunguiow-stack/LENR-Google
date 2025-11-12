@@ -1,0 +1,21 @@
+# Smart RAG Requirements - Only 1 API Key Needed!
+# The best balance of quality, cost, and simplicity
+
+# Core dependencies
+openai>=1.12.0              # Only API service needed (embeddings + LLM)
+chromadb>=0.4.24            # Local vector database (unlimited storage)
+sentence-transformers>=2.3.0 # Fallback local embeddings
+torch>=2.1.0                # Required by sentence-transformers
+
+# Document processing
+PyPDF2>=3.0.0               # PDF support
+python-docx>=1.1.0          # Word documents
+openpyxl>=3.1.0             # Excel files
+pandas>=2.0.0               # Data processing
+
+# Web interface
+streamlit>=1.29.0           # Beautiful UI
+
+# Utilities
+python-dotenv>=1.0.0        # Environment variables
+tqdm>=4.66.0                # Progress bars
