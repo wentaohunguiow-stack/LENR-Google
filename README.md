@@ -4,40 +4,41 @@
 
 ---
 
-## ⚡ Quick Start - Smart RAG (Recommended)
+## ⚡ Quick Start - Gemini Smart RAG (Recommended - Cheapest!)
 
-**Only 1 API key • $3-5/month • 3 minutes setup**
+**Only 1 API key • $0.50-1/month • 3 minutes setup • FREE embeddings**
 
 ```bash
 # Step 1: Install
-pip install -r requirements_smart.txt
+pip install -r requirements_gemini.txt
 
 # Step 2: Set API key
-echo "OPENAI_API_KEY=your-key" > .env
+echo "GOOGLE_API_KEY=your-key" > .env
 
 # Step 3: Test
-python examples/test_smart_rag.py
+python examples/test_gemini_smart_rag.py
 
 # Step 4: Index files
-python index_smart.py
+python index_gemini.py
 
 # Step 5: Start UI
-streamlit run streamlit_smart.py
+streamlit run streamlit_gemini.py
 ```
 
-**Get API key:** https://platform.openai.com/api-keys
+**Get API key:** https://aistudio.google.com/apikey
 
-**Read full guide:** `START_HERE.md`
+**Read full guide:** `START_GEMINI.md`
 
 ---
 
-## Why Smart RAG?
+## Why Gemini Smart RAG?
 
-| Feature | Smart RAG |
-|---------|-----------|
+| Feature | Gemini Smart RAG |
+|---------|------------------|
 | **Simplicity** | ✅ Only 1 API key needed |
-| **Cost** | ✅ $3-5/month (10x cheaper than enterprise) |
-| **Quality** | ✅ GPT-4 Turbo (excellent) |
+| **Cost** | ✅ $0.50-1/month (cheapest!) |
+| **Embeddings** | ✅ **FREE** ✨ |
+| **Quality** | ✅ Gemini 2.0 Flash (excellent) |
 | **Storage** | ✅ Unlimited (local disk) |
 | **Setup** | ✅ 3 minutes |
 | **Files** | ✅ Handles 7000+ files easily |
@@ -47,12 +48,20 @@ streamlit run streamlit_smart.py
 
 ## Comparison
 
-### Smart RAG (Recommended)
+### Gemini Smart RAG (Recommended - Cheapest!)
+- **Cost:** $0.50-1/month
+- **Embeddings:** FREE ✨
+- **API Keys:** 1 (Google only)
+- **Setup:** 3 minutes
+- **Quality:** Excellent (Gemini 2.0)
+- **Best for:** Most users ✅
+
+### OpenAI Smart RAG
 - **Cost:** $3-5/month
 - **API Keys:** 1 (OpenAI only)
 - **Setup:** 3 minutes
 - **Quality:** Excellent (GPT-4)
-- **Best for:** Most users ✅
+- **Best for:** Users who prefer GPT-4
 
 ### Enterprise RAG
 - **Cost:** $15/month
@@ -63,7 +72,7 @@ streamlit run streamlit_smart.py
 
 ### Local RAG
 - **Cost:** $0-1/month
-- **API Keys:** 0-1 (optional Gemini)
+- **API Keys:** 0-1 (optional)
 - **Setup:** 10 minutes
 - **Quality:** Good
 - **Best for:** Privacy-focused users

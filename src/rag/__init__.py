@@ -29,3 +29,10 @@ try:
     __all__.append("SmartRAG")
 except ImportError:
     pass
+
+# Try to import GeminiSmartRAG
+try:
+    from src.rag.gemini_smart_rag import GeminiSmartRAG
+    __all__.append("GeminiSmartRAG")
+except ImportError:
+    pass
