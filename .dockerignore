@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Data
+gemini_smart_rag_db/
+my_local_files/
+*.tar.gz
+*.zip
+
+# Logs
+*.log
+
+# Documentation
+*.md
+!README.md
+
+# Unnecessary files
+demo_data/
+examples/
+tests/
+.env.example

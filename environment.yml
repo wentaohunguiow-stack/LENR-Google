@@ -1,0 +1,25 @@
+# Snowflake Streamlit Environment File
+# 用于在Snowflake上部署Gemini Smart RAG
+
+name: gemini_smart_rag
+channels:
+  - snowflake
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      # Core dependencies
+      - google-genai>=0.3.0
+      - chromadb>=0.4.24
+      - streamlit>=1.29.0
+
+      # Document processing
+      - PyPDF2>=3.0.0
+      - python-docx>=1.1.0
+      - openpyxl>=3.1.0
+      - pandas>=2.0.0
+
+      # Utilities
+      - python-dotenv>=1.0.0
+      - tqdm>=4.66.0

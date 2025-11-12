@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  gemini-rag:
+    build: .
+    container_name: gemini-smart-rag
+    ports:
+      - "8501:8501"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      # 持久化数据库
+      - ./gemini_smart_rag_db:/app/gemini_smart_rag_db
+      # 本地文件目录
+      - ./my_local_files:/app/my_local_files
+    restart: unless-stopped
+    networks:
+      - gemini-network
+
+networks:
+  gemini-network:
+    driver: bridge
