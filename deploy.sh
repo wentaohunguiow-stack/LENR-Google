@@ -1,72 +1,72 @@
 #!/bin/bash
 
-# Gemini Smart RAG部署脚本
-# 适用于Ubuntu/Debian VPS
+# Gemini Smart RAG Deployment Script
+# For Ubuntu/Debian VPS
 
 set -e
 
 echo "========================================="
-echo "Gemini Smart RAG 部署脚本"
+echo "Gemini Smart RAG Deployment Script"
 echo "========================================="
 echo ""
 
-# 颜色定义
+# Color definitions
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-# 检查root权限
+# Check root permissions
 if [ "$EUID" -eq 0 ]; then
-  echo -e "${RED}请不要使用root用户运行此脚本${NC}"
-  echo "使用: ./deploy.sh"
+  echo -e "${RED}Please do not run this script as root${NC}"
+  echo "Usage: ./deploy.sh"
   exit 1
 fi
 
-# 步骤1: 更新系统
-echo -e "${YELLOW}步骤 1/8: 更新系统...${NC}"
+# Step 1: Update system
+echo -e "${YELLOW}Step 1/8: Updating system...${NC}"
 sudo apt-get update
 sudo apt-get install -y python3-pip python3-venv nginx curl
 
-# 步骤2: 创建应用目录
-echo -e "${YELLOW}步骤 2/8: 创建应用目录...${NC}"
+# Step 2: Create application directory
+echo -e "${YELLOW}Step 2/8: Creating application directory...${NC}"
 APP_DIR="/opt/gemini-rag"
 sudo mkdir -p $APP_DIR
 sudo chown $USER:$USER $APP_DIR
 
-# 步骤3: 复制文件
-echo -e "${YELLOW}步骤 3/8: 复制应用文件...${NC}"
+# Step 3: Copy files
+echo -e "${YELLOW}Step 3/8: Copying application files...${NC}"
 if [ -d "$APP_DIR" ]; then
     cp -r ./* $APP_DIR/
     cd $APP_DIR
 else
-    echo -e "${RED}无法创建应用目录${NC}"
+    echo -e "${RED}Failed to create application directory${NC}"
     exit 1
 fi
 
-# 步骤4: 创建虚拟环境
-echo -e "${YELLOW}步骤 4/8: 创建Python虚拟环境...${NC}"
+# Step 4: Create virtual environment
+echo -e "${YELLOW}Step 4/8: Creating Python virtual environment...${NC}"
 python3 -m venv venv
 source venv/bin/activate
 
-# 步骤5: 安装依赖
-echo -e "${YELLOW}步骤 5/8: 安装Python依赖...${NC}"
+# Step 5: Install dependencies
+echo -e "${YELLOW}Step 5/8: Installing Python dependencies...${NC}"
 pip install --upgrade pip
 pip install -r requirements_gemini.txt
 
-# 步骤6: 配置环境变量
-echo -e "${YELLOW}步骤 6/8: 配置环境变量...${NC}"
+# Step 6: Configure environment variables
+echo -e "${YELLOW}Step 6/8: Configuring environment variables...${NC}"
 if [ ! -f .env ]; then
-    echo -e "${YELLOW}请输入你的Google API密钥:${NC}"
+    echo -e "${YELLOW}Please enter your Google API key:${NC}"
     read -r GOOGLE_API_KEY
     echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" > .env
-    echo -e "${GREEN}✓ 环境变量已配置${NC}"
+    echo -e "${GREEN}✓ Environment variables configured${NC}"
 else
-    echo -e "${GREEN}✓ .env文件已存在${NC}"
+    echo -e "${GREEN}✓ .env file already exists${NC}"
 fi
 
-# 步骤7: 创建systemd服务
-echo -e "${YELLOW}步骤 7/8: 创建systemd服务...${NC}"
+# Step 7: Create systemd service
+echo -e "${YELLOW}Step 7/8: Creating systemd service...${NC}"
 sudo tee /etc/systemd/system/gemini-rag.service > /dev/null <<EOF
 [Unit]
 Description=Gemini Smart RAG
@@ -85,23 +85,23 @@ RestartSec=10
 WantedBy=multi-user.target
 EOF
 
-# 启动服务
+# Start service
 sudo systemctl daemon-reload
 sudo systemctl enable gemini-rag
 sudo systemctl start gemini-rag
 
-echo -e "${GREEN}✓ Systemd服务已创建并启动${NC}"
+echo -e "${GREEN}✓ Systemd service created and started${NC}"
 
-# 步骤8: 配置Nginx
-echo -e "${YELLOW}步骤 8/8: 配置Nginx反向代理...${NC}"
+# Step 8: Configure Nginx
+echo -e "${YELLOW}Step 8/8: Configuring Nginx reverse proxy...${NC}"
 
-# 询问域名
-echo -e "${YELLOW}请输入你的域名 (留空则使用IP):${NC}"
+# Ask for domain name
+echo -e "${YELLOW}Please enter your domain name (leave empty to use IP):${NC}"
 read -r DOMAIN_NAME
 
 if [ -z "$DOMAIN_NAME" ]; then
     DOMAIN_NAME="_"
-    echo -e "${YELLOW}将使用服务器IP访问${NC}"
+    echo -e "${YELLOW}Will use server IP for access${NC}"
 fi
 
 sudo tee /etc/nginx/sites-available/gemini-rag > /dev/null <<EOF
@@ -123,19 +123,19 @@ server {
 }
 EOF
 
-# 启用站点
+# Enable site
 sudo ln -sf /etc/nginx/sites-available/gemini-rag /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
-echo -e "${GREEN}✓ Nginx已配置${NC}"
+echo -e "${GREEN}✓ Nginx configured${NC}"
 
-# 完成
+# Completion
 echo ""
 echo "========================================="
-echo -e "${GREEN}✓ 部署完成！${NC}"
+echo -e "${GREEN}✓ Deployment Complete!${NC}"
 echo "========================================="
 echo ""
-echo "访问地址:"
+echo "Access URL:"
 if [ "$DOMAIN_NAME" = "_" ]; then
     SERVER_IP=$(curl -s ifconfig.me)
     echo -e "  ${GREEN}http://$SERVER_IP${NC}"
@@ -143,14 +143,14 @@ else
     echo -e "  ${GREEN}http://$DOMAIN_NAME${NC}"
 fi
 echo ""
-echo "常用命令:"
-echo "  查看状态: sudo systemctl status gemini-rag"
-echo "  查看日志: sudo journalctl -u gemini-rag -f"
-echo "  重启服务: sudo systemctl restart gemini-rag"
-echo "  停止服务: sudo systemctl stop gemini-rag"
+echo "Useful commands:"
+echo "  Check status: sudo systemctl status gemini-rag"
+echo "  View logs:    sudo journalctl -u gemini-rag -f"
+echo "  Restart:      sudo systemctl restart gemini-rag"
+echo "  Stop:         sudo systemctl stop gemini-rag"
 echo ""
-echo "下一步:"
-echo "  1. 访问上面的地址"
-echo "  2. 上传文件并索引"
-echo "  3. 开始使用！"
+echo "Next steps:"
+echo "  1. Visit the URL above"
+echo "  2. Upload files and index"
+echo "  3. Start using!"
 echo ""

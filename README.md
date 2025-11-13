@@ -1,139 +1,139 @@
-# LENR RAG系统 - Gemini版本
+# LENR RAG System - Gemini Edition
 
-**为你的7000+文件提供最佳RAG解决方案**
+**Best RAG solution for your 7000+ files**
 
-用Google Gemini API构建，无10GB限制，成本最低。
+Built with Google Gemini API. No 10GB limit. Lowest cost.
 
 ---
 
-## ⚡ 快速开始 (3分钟)
+## ⚡ Quick Start (3 Minutes)
 
-**只需1个API密钥 • $0.50-1/月 • 免费embeddings**
+**Only 1 API key • $0.50-1/month • FREE embeddings**
 
 ```bash
-# 步骤1: 安装依赖 (1分钟)
+# Step 1: Install dependencies (1 minute)
 pip install -r requirements_gemini.txt
 
-# 步骤2: 设置API密钥 (1分钟)
+# Step 2: Set API key (1 minute)
 echo "GOOGLE_API_KEY=your-key-here" > .env
 
-# 步骤3: 测试系统 (1分钟)
+# Step 3: Test system (1 minute)
 python examples/test_gemini_smart_rag.py
 
-# 步骤4: 索引你的文件
+# Step 4: Index your files
 python index_gemini.py
 
-# 步骤5: 启动Web界面
+# Step 5: Start web interface
 streamlit run streamlit_gemini.py
 ```
 
-**获取API密钥:** https://aistudio.google.com/apikey
+**Get API key:** https://aistudio.google.com/apikey
 
-**完整指南:** `START_GEMINI.md`
-
----
-
-## 🎯 核心优势
-
-### 解决你的问题
-
-✅ **无10GB限制** - 本地存储，无限空间
-✅ **处理7000+文件** - 轻松索引所有文件
-✅ **最低成本** - $0.50-1/月，免费embeddings
-✅ **优秀质量** - Gemini 2.0 Flash
-✅ **简单设置** - 3分钟完成
-✅ **易于分享** - 导出/导入数据库
-
-### 为什么选择Gemini
-
-| 功能 | Gemini方案 |
-|------|-----------|
-| **API密钥数量** | 1个 (只需Google) |
-| **每月成本** | $0.50-1 |
-| **Embeddings成本** | **免费** ✨ |
-| **每次查询成本** | $0.0005 |
-| **存储限制** | 无限制 (本地) |
-| **质量** | 优秀 (Gemini 2.0) |
-| **设置时间** | 3分钟 |
-| **索引时间** | 1-2小时 (7000文件) |
-| **长上下文** | 2M tokens |
+**Full guide:** `START_GEMINI.md`
 
 ---
 
-## 📦 功能特性
+## 🎯 Key Advantages
 
-### 支持的文件类型
+### Solves Your Problems
+
+✅ **No 10GB limit** - Local storage, unlimited space
+✅ **Handles 7000+ files** - Index all files easily
+✅ **Lowest cost** - $0.50-1/month, FREE embeddings
+✅ **Excellent quality** - Gemini 2.0 Flash
+✅ **Simple setup** - 3 minutes
+✅ **Easy sharing** - Export/import database
+
+### Why Choose Gemini
+
+| Feature | Gemini Solution |
+|---------|----------------|
+| **API Keys** | 1 (Google only) |
+| **Monthly Cost** | $0.50-1 |
+| **Embeddings Cost** | **FREE** ✨ |
+| **Per Query Cost** | $0.0005 |
+| **Storage Limit** | Unlimited (local) |
+| **Quality** | Excellent (Gemini 2.0) |
+| **Setup Time** | 3 minutes |
+| **Indexing Time** | 1-2 hours (7000 files) |
+| **Long Context** | 2M tokens |
+
+---
+
+## 📦 Features
+
+### Supported File Types
 - PDF (`.pdf`)
-- 文本 (`.txt`, `.md`)
+- Text (`.txt`, `.md`)
 - Word (`.docx`)
 - Excel (`.xlsx`, `.xls`)
 
-### 核心功能
-- ✅ 自动重复检测 (基于SHA256哈希)
-- ✅ 进度跟踪 (tqdm进度条)
-- ✅ 批量上传 (支持7000+文件)
-- ✅ 本地向量数据库 (ChromaDB)
-- ✅ 免费embeddings (Gemini API)
-- ✅ 优秀的LLM (Gemini 2.0 Flash)
-- ✅ 美观的Web界面 (Streamlit)
-- ✅ 数据库导出/导入 (分享功能)
-- ✅ 成本追踪
-- ✅ 多collection管理
+### Core Features
+- ✅ Automatic duplicate detection (SHA256 hash-based)
+- ✅ Progress tracking (tqdm progress bars)
+- ✅ Batch upload (supports 7000+ files)
+- ✅ Local vector database (ChromaDB)
+- ✅ FREE embeddings (Gemini API)
+- ✅ Excellent LLM (Gemini 2.0 Flash)
+- ✅ Beautiful web interface (Streamlit)
+- ✅ Database export/import (sharing)
+- ✅ Cost tracking
+- ✅ Multi-collection management
 
 ---
 
-## 💰 成本明细
+## 💰 Cost Breakdown
 
-### 你的7000个文件
+### Your 7000 Files
 
-**一次性成本 (索引):**
+**One-time cost (indexing):**
 ```
-Embeddings: 免费 ✨
-总计: $0
+Embeddings: FREE ✨
+Total: $0
 ```
 
-**每月成本 (1000次查询):**
+**Monthly cost (1000 queries):**
 ```
-存储: $0 (本地磁盘)
-Embeddings: 免费 ✨
+Storage: $0 (local disk)
+Embeddings: FREE ✨
 Gemini 2.0 Flash: 1000 × $0.0005 = $0.50
 
-总计: $0.50-1/月
+Total: $0.50-1/month
 ```
 
-**每次查询:**
+**Per query:**
 ```
-Embedding: 免费 ✨
-Gemini生成: $0.0005
+Embedding: FREE ✨
+Gemini generation: $0.0005
 
-总计: ~$0.0005/次
+Total: ~$0.0005/query
 ```
 
 ---
 
-## 🚀 使用方法
+## 🚀 Usage
 
-### 1. 获取API密钥
+### 1. Get API Key
 
-访问 https://aistudio.google.com/apikey 创建API密钥。
+Visit https://aistudio.google.com/apikey to create an API key.
 
-### 2. 安装和配置
+### 2. Install and Configure
 
 ```bash
-# 安装依赖
+# Install dependencies
 pip install -r requirements_gemini.txt
 
-# 设置API密钥
+# Set API key
 echo "GOOGLE_API_KEY=your-key-here" > .env
 ```
 
-### 3. 测试系统
+### 3. Test System
 
 ```bash
 python examples/test_gemini_smart_rag.py
 ```
 
-你会看到:
+You'll see:
 ```
 ✅ Gemini Smart RAG initialized
 ✅ Created collection: test_docs
@@ -143,170 +143,197 @@ python examples/test_gemini_smart_rag.py
 💰 Cost: FREE embeddings + $0.0005 per query
 ```
 
-### 4. 索引你的文件
+### 4. Index Your Files
 
 ```bash
-# 将文件放到 my_local_files/ 目录
+# Put files in directory
 mkdir -p my_local_files
 cp your_files/* my_local_files/
 
-# 运行索引脚本
+# Run indexing script
 python index_gemini.py
 ```
 
-这会:
-- 自动查找所有支持的文件
-- 显示进度条
-- 跳过重复文件
-- 保存到本地数据库
-- 完全免费 (embeddings免费)
+This will:
+- Automatically find all supported files
+- Show progress bar
+- Skip duplicate files
+- Save to local database
+- Completely free (FREE embeddings)
 
-### 5. 查询数据
+### 5. Query Data
 
-#### 方式A: Web界面 (推荐)
+#### Option A: Web Interface (Recommended)
 
 ```bash
 streamlit run streamlit_gemini.py
 ```
 
-然后访问 http://localhost:8501
+Then visit http://localhost:8501
 
-#### 方式B: Python脚本
+#### Option B: Python Script
 
 ```python
 from src.rag.gemini_smart_rag import GeminiSmartRAG
 
-# 初始化
+# Initialize
 rag = GeminiSmartRAG()
 
-# 查询
-result = rag.query("你的问题", collection_name="my_docs")
+# Query
+result = rag.query("Your question", collection_name="my_docs")
 
-# 显示结果
+# Display results
 print(result['answer'])
-print(f"来源: {result['n_sources']}")
+print(f"Sources: {result['n_sources']}")
 ```
 
 ---
 
-## 📤 分享数据库
+## 📤 Sharing Database
 
-### 导出数据库
+### Export Database
 
 ```bash
 python database_manager.py export ./gemini_smart_rag_db my_database.tar.gz
 ```
 
-### 分享
+### Share
 
-上传 `my_database.tar.gz` 到:
+Upload `my_database.tar.gz` to:
 - Google Drive
-- 百度网盘
 - Dropbox
-- 阿里云盘
+- Any cloud storage
 
-### 导入数据库 (接收者)
+### Import Database (Recipient)
 
 ```bash
-# 安装依赖
+# Install dependencies
 pip install -r requirements_gemini.txt
 
-# 导入数据库
+# Import database
 python database_manager.py import my_database.tar.gz ./gemini_smart_rag_db
 
-# 启动
+# Start
 streamlit run streamlit_gemini.py
 ```
 
 ---
 
-## 🏗️ 技术架构
+## 🚀 Deployment
+
+### Quick Deploy Options
+
+**Docker (Recommended):**
+```bash
+docker-compose up -d
+```
+
+**VPS (Ubuntu/Debian):**
+```bash
+./deploy.sh
+```
+
+**Snowflake Streamlit:**
+```bash
+python deploy_snowflake.py
+```
+
+**Full deployment guide:** `DEPLOY.md`
+
+---
+
+## 🏗️ Architecture
 
 ```
-用户问题
+User Question
     ↓
 Gemini Embeddings (FREE)
-    ↓ [768-dim向量]
-ChromaDB (本地向量搜索)
-    ↓ [Top 5相关块]
+    ↓ [768-dim vectors]
+ChromaDB (local vector search)
+    ↓ [Top 5 relevant chunks]
 Gemini 2.0 Flash ($0.0005/query)
     ↓
-答案 + 引用来源
+Answer + Citations
 ```
 
 ---
 
-## 📂 项目结构
+## 📂 Project Structure
 
 ```
 .
 ├── src/rag/
-│   ├── gemini_smart_rag.py      # Gemini RAG实现
-│   ├── local_rag.py              # 本地RAG (备用)
-│   └── gemini_rag.py             # 原始Gemini RAG
+│   ├── gemini_smart_rag.py      # Gemini RAG implementation
+│   ├── local_rag.py              # Local RAG (backup)
+│   └── gemini_rag.py             # Original Gemini RAG
 ├── examples/
-│   └── test_gemini_smart_rag.py # 测试脚本
-├── streamlit_gemini.py           # Web界面
-├── index_gemini.py               # 索引脚本
-├── database_manager.py           # 数据库管理
-├── requirements_gemini.txt       # 依赖
-└── START_GEMINI.md               # 完整指南
+│   └── test_gemini_smart_rag.py # Test script
+├── streamlit_gemini.py           # Web interface
+├── index_gemini.py               # Indexing script
+├── database_manager.py           # Database management
+├── requirements_gemini.txt       # Dependencies
+├── Dockerfile                    # Docker image
+├── docker-compose.yml            # Docker Compose
+├── deploy.sh                     # VPS deployment
+└── START_GEMINI.md               # Full guide
 ```
 
 ---
 
-## 🔧 常见问题
+## 🔧 FAQ
 
-### 问: 7000个文件需要多久？
+### Q: How long for 7000 files?
 
-**答:** 约1-2小时
-- 取决于文件大小和CPU速度
-- 使用进度条可以看到进度
-- Embeddings是免费的！
+**A:** About 1-2 hours
+- Depends on file size and CPU speed
+- Progress bar shows progress
+- Embeddings are FREE!
 
-### 问: 数据库会有多大？
+### Q: How big is the database?
 
-**答:** 约原始文件的30-40%
-- 7000个PDF (7GB) → 数据库约2-3GB
-- 压缩后 `.tar.gz` → 约1GB
+**A:** About 30-40% of original files
+- 7000 PDFs (7GB) → database ~2-3GB
+- Compressed `.tar.gz` → ~1GB
 
-### 问: 可以在Snowflake部署吗？
+### Q: Can I deploy to Snowflake?
 
-**答:** 可以！
-1. 上传 `streamlit_gemini.py` 和 `src/` 文件夹
-2. 添加 `GOOGLE_API_KEY` 密钥
-3. 部署即可
+**A:** Yes!
+1. Upload `streamlit_gemini.py` and `src/` folder
+2. Add `GOOGLE_API_KEY` secret
+3. Deploy
 
-### 问: 支持中文吗？
+### Q: Does it support Chinese?
 
-**答:** 完全支持！
-- Gemini支持中文查询
-- 可以索引中文文档
-- 界面也可以显示中文
+**A:** Fully supported!
+- Gemini supports Chinese queries
+- Can index Chinese documents
+- Interface can display Chinese
 
 ---
 
-## 📚 文档
+## 📚 Documentation
 
-- **START_GEMINI.md** - 完整中文指南
-- **database_manager.py** - 数据库导出/导入工具
+- **START_GEMINI.md** - Complete guide
+- **DEPLOY.md** - Deployment guide
+- **QUICK_DEPLOY.md** - Quick deployment
+- **database_manager.py** - Database export/import
 - **Google AI Studio** - https://aistudio.google.com/
 
 ---
 
-## 🎉 总结
+## 🎉 Summary
 
-你得到的最佳方案:
+Best solution for your needs:
 
-✅ **解决10GB限制** - 本地存储无限
-✅ **处理7000+文件** - 轻松索引
-✅ **最低成本** - $0.50-1/月，免费embeddings
-✅ **优秀质量** - Gemini 2.0 Flash
-✅ **简单设置** - 只需3分钟，1个API密钥
-✅ **易于分享** - 导出/导入数据库
-✅ **长上下文** - 2M tokens支持
+✅ **Solves 10GB limit** - Unlimited local storage
+✅ **Handles 7000+ files** - Easy indexing
+✅ **Lowest cost** - $0.50-1/month, FREE embeddings
+✅ **Excellent quality** - Gemini 2.0 Flash
+✅ **Simple setup** - Only 3 minutes, 1 API key
+✅ **Easy sharing** - Export/import database
+✅ **Long context** - 2M tokens support
 
-**立即开始:**
+**Get started now:**
 
 ```bash
 pip install -r requirements_gemini.txt
@@ -316,4 +343,4 @@ python index_gemini.py
 streamlit run streamlit_gemini.py
 ```
 
-💎 **简单。强大。最便宜。用Gemini！**
+💎 **Simple. Powerful. Cheapest. Use Gemini!**
